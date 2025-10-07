@@ -1,7 +1,9 @@
+"use client";
+
+import { useGetAccounts } from "../features/accounts/api/use-get-accounts";
+
 export default function Home() {
-  return (
-    <div className="flex min-h-screen items-center justify-center">
-      Dashboard Page
-    </div>
-  );
+  const accountsQuery = useGetAccounts();
+
+  return <div>Home Page</div>;
 }
