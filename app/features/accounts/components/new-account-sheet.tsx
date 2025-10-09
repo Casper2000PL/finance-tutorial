@@ -43,7 +43,7 @@ const NewAccountSheet = () => {
             onSubmit={onSubmit}
             disabled={isCreating}
             onDelete={() => {}}
-            defaultValues={{ name: "asd" }}
+            defaultValues={{ name: "" }}
           />
         </div>
       </SheetContent>
