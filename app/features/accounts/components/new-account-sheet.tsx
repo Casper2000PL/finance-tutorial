@@ -7,10 +7,10 @@ import {
   SheetTitle,
   SheetDescription,
 } from "@/components/ui/sheet";
-import { AccountForm } from "./account-form";
+import { AccountForm } from "@/app/features/accounts/components/account-form";
 import z from "zod";
 import { insertAccountSchema } from "@/db/schema";
-import { useCreateAccount } from "../api/use-create-account";
+import { useCreateAccount } from "@/app/features/accounts/api/use-create-account";
 
 const formSchema = insertAccountSchema.pick({ name: true });
 
