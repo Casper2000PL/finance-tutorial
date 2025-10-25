@@ -37,7 +37,7 @@ const app = new Hono()
       }
 
       const [data] = await db
-        .select()
+        .select({ id: categories.id, name: categories.name })
         .from(categories)
         .where(and(eq(categories.id, id), eq(categories.userId, auth.userId)));
 
@@ -69,8 +69,8 @@ const app = new Hono()
         .insert(categories)
         .values({
           id: createId(),
-          name: values.name,
           userId: auth.userId,
+          ...values,
         })
         .returning();
 
