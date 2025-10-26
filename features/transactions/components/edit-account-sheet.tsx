@@ -8,11 +8,11 @@ import {
 import { insertAccountSchema } from "@/db/schema";
 import { useConfirm } from "@/hooks/use-confirm";
 import z from "zod";
-import { useGetAccount } from "@/app/features/accounts/api/use-get-account";
-import { useOpenAccount } from "@/app/features/accounts/hooks/use-open-account";
-import { AccountForm } from "@/app/features/accounts/components/account-form";
-import { useEditAccount } from "@/app/features/accounts/api/use-edit-account";
-import { useDeleteAccount } from "@/app/features/accounts/api/use-delete-account";
+import { useGetAccount } from "@/features/accounts/api/use-get-account";
+import { useOpenAccount } from "@/features/accounts/hooks/use-open-account";
+import { AccountForm } from "@/features/accounts/components/account-form";
+import { useEditAccount } from "@/features/accounts/api/use-edit-account";
+import { useDeleteAccount } from "@/features/accounts/api/use-delete-account";
 import { Loader2 } from "lucide-react";
 
 const formSchema = insertAccountSchema.pick({ name: true });

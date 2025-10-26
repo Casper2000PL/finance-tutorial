@@ -1,4 +1,4 @@
-import { useNewAccount } from "@/app/features/accounts/hooks/use-new-account";
+import { useNewAccount } from "@/features/accounts/hooks/use-new-account";
 
 import {
   Sheet,
@@ -7,10 +7,10 @@ import {
   SheetTitle,
   SheetDescription,
 } from "@/components/ui/sheet";
-import { AccountForm } from "@/app/features/accounts/components/account-form";
+import { AccountForm } from "@/features/accounts/components/account-form";
 import z from "zod";
 import { insertAccountSchema } from "@/db/schema";
-import { useCreateAccount } from "@/app/features/accounts/api/use-create-account";
+import { useCreateAccount } from "@/features/accounts/api/use-create-account";
 
 const formSchema = insertAccountSchema.pick({ name: true });
 

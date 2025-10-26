@@ -1,14 +1,14 @@
 "use client";
 
-import { useNewAccount } from "@/app/features/accounts/hooks/use-new-account";
+import { useNewAccount } from "@/features/accounts/hooks/use-new-account";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Loader, PlusIcon } from "lucide-react";
 import { columns } from "./columns";
 import { DataTable } from "./data-table";
-import { useGetAccounts } from "@/app/features/accounts/api/use-get-accounts";
+import { useGetAccounts } from "@/features/accounts/api/use-get-accounts";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useBulkDeleteAccounts } from "@/app/features/accounts/api/use-bulk-delete-accounts";
+import { useBulkDeleteAccounts } from "@/features/accounts/api/use-bulk-delete-accounts";
 
 const AccountsPage = () => {
   const newAccount = useNewAccount();

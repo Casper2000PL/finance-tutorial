@@ -1,14 +1,14 @@
 "use client";
 
-import { useNewCategory } from "@/app/features/categories/hooks/use-new-category";
+import { useNewCategory } from "@/features/categories/hooks/use-new-category";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Loader, PlusIcon } from "lucide-react";
 import { columns } from "./columns";
 import { DataTable } from "./data-table";
-import { useGetCategories } from "@/app/features/categories/api/use-get-categories";
+import { useGetCategories } from "@/features/categories/api/use-get-categories";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useBulkDeleteCategories } from "@/app/features/categories/api/use-bulk-delete-categories";
+import { useBulkDeleteCategories } from "@/features/categories/api/use-bulk-delete-categories";
 
 const CategoriesPage = () => {
   const newCategory = useNewCategory();

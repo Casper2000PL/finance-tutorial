@@ -1,14 +1,14 @@
-import { Button } from "@/components/ui/button";
+import z from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useNewAccount } from "@/features/accounts/hooks/use-new-account";
+import { insertAccountSchema } from "@/db/schema";
 import { Form, FormField, FormItem, FormLabel } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { insertCategorySchema } from "@/db/schema";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { Button } from "@/components/ui/button";
 import { Trash2Icon } from "lucide-react";
-import { useForm } from "react-hook-form";
-import z from "zod";
-import { useNewCategory } from "@/app/features/categories/hooks/use-new-category";
 
-const formSchema = insertCategorySchema.pick({ name: true });
+const formSchema = insertAccountSchema.pick({ name: true });
 
 type FormValues = z.infer<typeof formSchema>;
 
@@ -20,14 +20,14 @@ type Props = {
   disabled?: boolean;
 };
 
-export const CategoryForm = ({
+export const AccountForm = ({
   id,
   defaultValues,
   onSubmit,
   onDelete,
   disabled,
 }: Props) => {
-  const { onClose } = useNewCategory();
+  const { onClose } = useNewAccount();
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -54,7 +54,7 @@ export const CategoryForm = ({
           name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Category Name</FormLabel>
+              <FormLabel>Account Name</FormLabel>
               <Input
                 disabled={disabled}
                 type="text"
@@ -65,7 +65,7 @@ export const CategoryForm = ({
           )}
         />
         <Button type="submit" disabled={disabled} className="w-full">
-          {id ? "Save changes" : "Create category"}
+          {id ? "Save changes" : "Create account"}
         </Button>
         {!!id && (
           <Button
@@ -76,7 +76,7 @@ export const CategoryForm = ({
             variant="outline"
           >
             <Trash2Icon className="mr-2 size-4" />
-            Delete category
+            Delete account
           </Button>
         )}
       </form>
