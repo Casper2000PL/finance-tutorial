@@ -8,10 +8,43 @@ import { useGetTransactions } from "@/features/transactions/api/use-get-transact
 import { useNewTransaction } from "@/features/transactions/hooks/use-new-transaction";
 import { Loader, PlusIcon } from "lucide-react";
 import { columns } from "./columns";
-import { DataTable } from "./data-table";
+import { DataTable } from "@/components/data-table";
+import { useState } from "react";
+import UploadButton from "./upload-button";
+import { ImportCard } from "./import-card";
+import { toast } from "sonner";
+import { transactions as transactionsSchema } from "@/db/schema";
+import { useBulkCreateTransactions } from "@/features/transactions/api/use-bulk-create-transactions";
+
+enum VARIANTS {
+  LIST = "LIST",
+  IMPORT = "IMPORT",
+}
+
+const INITIAL_IMPORT_RESULTS = {
+  data: [],
+  errors: [],
+  meta: {},
+};
 
 const TransactionsPage = () => {
+  const [variant, setVariant] = useState<VARIANTS>(VARIANTS.LIST);
+  const [importResults, setImportResults] = useState(INITIAL_IMPORT_RESULTS);
+
+  const onUpload = (results: typeof INITIAL_IMPORT_RESULTS) => {
+    setImportResults(results);
+    setVariant(VARIANTS.IMPORT);
+    console.log("IMPORT RESULTS", results);
+    toast.success("File uploaded successfully");
+  };
+
+  const onCancelImport = () => {
+    setImportResults(INITIAL_IMPORT_RESULTS);
+    setVariant(VARIANTS.LIST);
+  };
+
   const newTransaction = useNewTransaction();
+  const createTransactions = useBulkCreateTransactions();
   const deleteTransactions = useBulkDeleteTransactions();
   const transactionsQuery = useGetTransactions();
   const transactions = transactionsQuery.data || [];
@@ -36,17 +69,36 @@ const TransactionsPage = () => {
     );
   }
 
+  if (variant === VARIANTS.IMPORT) {
+    return (
+      <>
+        <ImportCard
+          data={importResults.data}
+          onCancel={onCancelImport}
+          onSubmit={() => {}}
+        />
+      </>
+    );
+  }
+
   return (
     <div className="max-w-screen-2xl mx-auto pb-10 -mt-24">
-      <Card className="border-none drop-shadow-sm ">
+      <Card className="border-none drop-shadow-sm">
         <CardHeader className="gap-y-2 lg:flex lg:flex-row lg:items-center lg:justify-between">
           <CardTitle className="text-xl line-clamp-1">
             Transactions History
           </CardTitle>
-
-          <Button onClick={newTransaction.onOpen} size="sm">
-            <PlusIcon className="size-4 mr-2" /> Add new
-          </Button>
+          <div className="flex flex-col lg:flex-row gap-y-2 items-center gap-x-2">
+            <Button
+              onClick={newTransaction.onOpen}
+              size="sm"
+              className="w-full lg:w-auto"
+            >
+              <PlusIcon className="size-4 mr-2" />
+              Add new
+            </Button>
+            <UploadButton onUpload={onUpload} />
+          </div>
         </CardHeader>
         <CardContent>
           <DataTable
